@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="./../styles/mainMenu.css">
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+    <script src="./../scripts/login.js"></script>
+
+    <title>Document</title>
+</head>
+<body id="body">
+
+<img src="./../sorces/mianBackground.jpg" class="mainBackground">
+
+<section class="main-page ">
+
+    <div class="main-form-container">
+
+        <form class="game-settings main-form" id="settingsForm">
+
+
+            <div class="main-form-impute">
+                <h2 class="form-label">Select your opponent</h2>
+
+                <div class="player-ratio">
+                    <input type="radio" id="computer" name="opponent" value="computer" checked/>
+                    <label class="ratio-label" for="computer">computer</label>
+                </div>
+
+                <div class="player-ratio">
+                    <input type="radio" id="player" name="opponent" value="player"/>
+                    <label class="ratio-label" for="player">player</label>
+                </div>
+
+            </div>
+
+            <div class="main-form-impute">
+                <label class="form-label" for="bordSize">Choose bord size:</label>
+                <select id="bordSize">
+                    <option value="3">three blocks</option>
+                    <option value="5">five blocks</option>
+                    <option value="7">seven blocks</option>
+                    <option value="9">nine blocks</option>
+                </select>
+            </div>
+
+            <div class="button-container">
+                <button class="main-form-submit" id="">
+                    play
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,141 @@
+body {
+  margin: 0;
+}
+body .mainBackground {
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  z-index: 0;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+body .main-page {
+  position: absolute;
+  z-index: 100;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+body .main-page .main-form-container {
+  background-color: rgba(238, 238, 238, 0.46);
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 20px 40px;
+  border-radius: 15px;
+  margin-bottom: 220px;
+  margin-right: 30px;
+}
+body .main-page .main-form-container .main-form {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  flex-direction: column;
+}
+body .main-page .main-form-container .main-form .main-form-impute {
+  margin-bottom: 20px;
+}
+body .main-page .main-form-container .main-form .main-form-impute select {
+  padding: 5px;
+  color: #eeeeee;
+  background-color: rgba(51, 26, 26, 0.534);
+  font-size: 16px;
+}
+body .main-page .main-form-container .main-form .main-form-impute .player-ratio .ratio-label {
+  font-size: 25px;
+  font-family: Mallanna;
+  color: #eeeeee;
+  letter-spacing: 2px;
+  font-weight: 500;
+}
+body .main-page .main-form-container .main-form .form-label {
+  font-size: 30px;
+  font-family: Mallanna;
+  color: #eeeeee;
+  margin: 0;
+  letter-spacing: 2px;
+  font-weight: 500;
+}
+body .main-page .main-form-container .button-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+body .main-page .main-form-container .button-container .main-form-submit {
+  background-color: rgba(51, 26, 26, 0.534);
+  color: #eeeeee;
+  font-size: 21px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Mallanna;
+  font-weight: 700;
+  letter-spacing: 2px;
+  border-radius: 10px;
+  line-height: 10px;
+  padding: 10px 40px;
+  padding-top: 15px;
+  border: none;
+}
+
+.boardContainer {
+  position: relative;
+  z-index: 100;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: space-between;
+}
+.boardContainer .board {
+  order: 2;
+  position: relative;
+  height: 80vh;
+  border: 1px solid rgba(112, 8, 1, 0.842);
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10vh;
+  z-index: 100;
+}
+.boardContainer .board .boardBlock {
+  background-color: rgba(0, 0, 0, 0.438);
+  border-top: 2px rgb(255, 217, 0) solid;
+  border-left: 2px rgb(255, 217, 0) solid;
+  border-bottom: 2px rgb(85, 49, 8) solid;
+  border-right: 2px rgb(85, 49, 8) solid;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  height: 60px;
+  top: 0;
+  width: 100%;
+  z-index: 200;
+  justify-content: center;
+  background-color: rgba(0, 25, 48, 0.747);
+}
+
+.playerInfo {
+  height: 100vh;
+  padding: 0px 50px;
+  display: flex;
+}
+.playerInfo .labelContainer {
+  width: 90;
+  height: 120;
+  background-image: url(./../sorces/shield.png);
+}
+.playerInfo .labelContainer .label {
+  height: 150px;
+  background-position: center;
+  background-size: 120px 150px;
+  margin-top: 100px;
+  font-size: 55px;
+  line-height: 40px;
+  font-weight: 700;
+  color: rgb(75, 50, 29);
+}/*# sourceMappingURL=mainMenu.css.map */
