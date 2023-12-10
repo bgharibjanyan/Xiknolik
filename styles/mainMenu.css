@@ -92,19 +92,28 @@ body .main-page .main-form-container .button-container .main-form-submit {
 .boardContainer .board {
   order: 2;
   position: relative;
-  height: 80vh;
-  border: 1px solid rgba(112, 8, 1, 0.842);
+  height: 82.5vh;
+  border: 1px solid rgba(168, 18, 8, 0.842);
   display: flex;
   flex-wrap: wrap;
+  border-bottom: 2px rgb(255, 217, 0) solid;
+  border-right: 2px rgb(255, 217, 0) solid;
   margin-top: 10vh;
   z-index: 100;
 }
 .boardContainer .board .boardBlock {
   background-color: rgba(0, 0, 0, 0.438);
-  border-top: 2px rgb(255, 217, 0) solid;
-  border-left: 2px rgb(255, 217, 0) solid;
-  border-bottom: 2px rgb(85, 49, 8) solid;
-  border-right: 2px rgb(85, 49, 8) solid;
+  border-top: 3px rgb(255, 217, 0) solid;
+  border-left: 3px rgb(255, 217, 0) solid;
+  border-bottom: 3px rgb(105, 23, 2) solid;
+  border-right: 3px rgb(107, 19, 4) solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.boardContainer .board .boardBlock .character {
+  height: 75%;
+  width: 75%;
 }
 
 header {
@@ -121,21 +130,53 @@ header {
 
 .playerInfo {
   height: 100vh;
-  padding: 0px 50px;
+  padding: 0px 30px;
   display: flex;
+  width: 100px;
+  align-items: center;
+  flex-direction: column;
+}
+.playerInfo .timer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+  background-color: rgba(78, 78, 85, 0.6117647059);
+  height: 100px;
+  width: 100px;
+  border: #4e4e55 4px solid;
+  border-radius: 50%;
+}
+.playerInfo .timer .timer-value {
+  font-size: 60px;
+  color: rgb(255, 238, 0);
+  font-family: "Courier New", Courier, monospace;
 }
 .playerInfo .labelContainer {
   width: 90;
   height: 120;
-  background-image: url(./../sorces/shield.png);
+  background-color: rgba(0, 0, 0, 0.61);
+  height: -moz-min-content;
+  height: min-content;
+  padding-bottom: 100px;
+}
+.playerInfo .labelContainer .player-icon {
+  position: relative;
+  height: 120px;
+  width: 90px;
+  z-index: 100;
+  top: 85px;
 }
 .playerInfo .labelContainer .label {
   height: 150px;
+  position: absolute;
+  z-index: 150;
+  margin: 0;
   background-position: center;
   background-size: 120px 150px;
-  margin-top: 100px;
-  font-size: 55px;
+  font-size: 60px;
   line-height: 40px;
-  font-weight: 700;
-  color: rgb(75, 50, 29);
+  font-weight: 900;
+  margin-left: 30px;
+  color: rgb(119, 1, 1);
 }/*# sourceMappingURL=mainMenu.css.map */
