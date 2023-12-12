@@ -3,6 +3,10 @@ let moveCount = 2;
 let boardLength;
 let boardBoarder = 5;
 
+
+let timerDefauldValue=60;
+
+
 let boardMap = [];
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -17,6 +21,8 @@ document.addEventListener('DOMContentLoaded', function () {
             createBlock(board, `${i}${j}`);
         }
     }
+
+    timer.createTimer()
 
 
 });
@@ -63,11 +69,12 @@ function makeMove(block) {
 
 
         block.appendChild(icon);
-        wincheck(turn, x, y);
+     
         moveCount++
 
         boardMap[y][x] = turn;
-
+   wincheck(turn, x, y);
+   timer.value=61
     }
 }
 
@@ -78,22 +85,37 @@ function calcTurn() {
 
 
 function wincheck(turn, x, y) {
-    let inlineX = 1;
-    let inlineY = 1;
+    let inlineX = 0;
+    let inlineY = 0;
+
+    let diagL=0;
+    let diagR=0;
+
 
     for (let i = 0; i < boardBoarder; i++) {
+ 
+    console.log(boardMap[i][boardBoarder-i-1]);
+   
+             if(boardMap[i][i]==turn){
+            diagL++
+        }
+        if(boardMap[i][boardBoarder-i-1]===0){
+            diagR++;
+        }
+        
+       
         if (boardMap[i][x] === turn) {
 
             inlineX++;
         }
         if (boardMap[y][i] === turn) {
             inlineY++;
-        }
+        } 
+       
     }
-    console.log(inlineX);
-    console.log(inlineY);
+    console.log("R"+diagR);
   
-    if (inlineX === boardBoarder || inlineY === boardBoarder) {
+    if (inlineX === boardBoarder || inlineY === boardBoarder||diagL === boardBoarder||diagR === boardBoarder) {
         win(turn);
     }
 }
@@ -101,3 +123,31 @@ function wincheck(turn, x, y) {
 function win(turn) {
     alert('player' + turn+1 + "won")
 }
+
+
+var timer={
+    value:61,
+    interval:1000,
+    
+
+    createTimer() {
+        setInterval(this.dec.bind(this), this.interval);
+      },
+
+    dec(){
+        this.value--
+        this.updateValue();
+        console.log(this.value)
+    },
+
+    updateValue(){
+        let turn=moveCount%2+1;
+        const parentElement=document.getElementById("val"+turn)
+
+        if (parentElement) {
+            parentElement.textContent = this.value; 
+        }
+    }
+}
+
+
