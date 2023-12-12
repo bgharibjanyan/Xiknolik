@@ -179,4 +179,71 @@ header {
   font-weight: 900;
   margin-left: 30px;
   color: rgb(119, 1, 1);
+}
+
+.won-menu-container {
+  position: absolute;
+  min-width: 100%;
+  min-height: 100vh;
+  padding-top: 50px;
+  display: none;
+  justify-content: start;
+  align-items: center;
+  z-index: 500;
+  flex-direction: column;
+  background-color: rgba(0, 0, 0, 0.6156862745);
+  top: 0px;
+  left: 0px;
+}
+.won-menu-container .win-title {
+  font-size: 45px;
+  font-weight: 900;
+  color: #861010;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0px;
+  margin-bottom: 30px;
+}
+.won-menu-container .content {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  max-height: 200;
+  padding-top: 20px;
+}
+.won-menu-container .content .won-menu-buttons {
+  margin-top: 100px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.won-menu-container .content .won-menu-buttons button {
+  margin: 5px;
+  background-color: rgb(243, 199, 78);
+  color: #811818;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 5px;
+}
+.won-menu-container .content .moves-background {
+  top: -75px;
+  left: -115px;
+  position: absolute;
+  width: 190%;
+  z-index: 100;
+}
+.won-menu-container .content .moves-container {
+  height: 200px;
+  overflow-y: scroll;
+  padding: 30px;
+  border-radius: 10px;
+  padding-top: 45px;
+}
+.won-menu-container .content .moves-container .moveStr {
+  position: relative;
+  z-index: 200;
+  font-size: 15px;
+  font-family: sans-serif;
+  font-weight: 700;
+  color: rgb(180, 2, 2);
+  min-width: 170px;
 }/*# sourceMappingURL=mainMenu.css.map */

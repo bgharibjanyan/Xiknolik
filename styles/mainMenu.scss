@@ -195,3 +195,77 @@ margin-top: 40px;
     }
   }
 }
+.won-menu-container{
+  position:absolute;
+  min-width: 100%;
+  min-height: 100vh;
+  padding-top: 50px;
+  display: none;
+  justify-content: start;
+  align-items: center;
+  z-index: 500;
+  flex-direction: column;
+  background-color: #0000009d;
+  top:0px;
+  left: 0px;
+ .win-title{
+      font-size: 45px;
+      font-weight: 900;
+      color: #861010;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin:0px;
+      margin-bottom: 30px;
+    }
+  .content{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    max-height: 200;
+    padding-top: 20px;
+
+    .won-menu-buttons{
+      margin-top: 100px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+
+      button{
+        margin: 5px;
+        background-color: rgb(243, 199, 78);
+        color: #811818;
+        font-size: 18px;
+        font-weight: 600;
+        padding: 5px;
+      }
+
+    }
+
+ .moves-background{
+  top: -75px;
+  left: -115px;
+  position: absolute;
+  width: 190%;
+  z-index: 100;
+      }
+   
+    .moves-container{
+      height: 200px;
+      overflow-y: scroll;
+      padding: 30px;
+      border-radius: 10px;
+      padding-top: 45px;
+
+      .moveStr{
+        position: relative;
+        z-index: 200;
+        font-size: 15px;
+          font-family: sans-serif;
+          font-weight: 700;
+      color: rgb(180, 2, 2) ;
+      min-width: 170px;
+      }
+    
+
+    }
+  }
+}

@@ -1,12 +1,16 @@
 let board;
 let moveCount = 2;
 let boardLength;
-let boardBoarder = 5;
+let boardBoarder=parseInt(localStorage.getItem("boardSize"));
 
+let time=0;
 
 let timerDefauldValue=60;
 
+let rows=[1,2,3,4,5,6,7,8,9];
+let columns = ["a","b","c","d","e","f","g","h","i"]
 
+let moves=[];
 let boardMap = [];
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -23,8 +27,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     timer.createTimer()
-
-
 });
 
 function createBlock(parent, id) {
@@ -74,8 +76,12 @@ function makeMove(block) {
 
         boardMap[y][x] = turn;
    wincheck(turn, x, y);
-   timer.value=61
+   time+=timer.value;
+   timer.value=61;
+    moves.push("player"+turn+"     X:"+rows[x]+" y:"+columns[y]+ "   time: "+ time);
     }
+
+   
 }
 
 
@@ -93,9 +99,6 @@ function wincheck(turn, x, y) {
 
 
     for (let i = 0; i < boardBoarder; i++) {
- 
-    console.log(boardMap[i][boardBoarder-i-1]);
-   
              if(boardMap[i][i]==turn){
             diagL++
         }
@@ -111,9 +114,9 @@ function wincheck(turn, x, y) {
         if (boardMap[y][i] === turn) {
             inlineY++;
         } 
-       
     }
-    console.log("R"+diagR);
+  
+    console.log(inlineX)
   
     if (inlineX === boardBoarder || inlineY === boardBoarder||diagL === boardBoarder||diagR === boardBoarder) {
         win(turn);
@@ -121,33 +124,67 @@ function wincheck(turn, x, y) {
 }
 
 function win(turn) {
-    alert('player' + turn+1 + "won")
+
+    document.getElementById('wonMenuContainer').style.display="flex";
+
+
+    timer.clearTimer();
+    let winTitle=' player' + (turn+1) + "   won";
+
+    const winTitleElement=document.getElementById("winTitle");
+    winTitleElement.textContent = winTitle;
+
+
+    const movesContainer= document.getElementById("moves");
+
+    for(let i=0;i<moves.length;i++){
+        let move=document.createElement("p");
+        move.setAttribute('class',"moveStr")
+        move.textContent=moves[i];
+        movesContainer.appendChild(move);
+
+    }
+
+
+    alert('player' + (turn+1) + "won")
+    console.log(moves);
 }
 
 
-var timer={
-    value:61,
-    interval:1000,
-    
+let timer = {
+    value: 61,
+    interval: 100,
+    timerLoop: null,
 
     createTimer() {
-        setInterval(this.dec.bind(this), this.interval);
-      },
-
-    dec(){
-        this.value--
-        this.updateValue();
-        console.log(this.value)
+        this.timer = setInterval(this.dec.bind(this), this.interval);
     },
 
-    updateValue(){
-        let turn=moveCount%2+1;
-        const parentElement=document.getElementById("val"+turn)
+    dec() {
+        this.value--;
+        this.updateValue();
+
+        if (this.value === 0) {
+            win((moveCount+1)%2);
+        }
+    },
+
+    updateValue() {
+        let turn = moveCount % 2 + 1;
+        const parentElement = document.getElementById("val" + turn);
 
         if (parentElement) {
-            parentElement.textContent = this.value; 
+            parentElement.textContent = this.value;
         }
+    },
+
+    clearTimer() {
+        clearInterval(this.timer);
     }
-}
+};
+
+
+
+
 
 
