@@ -3,6 +3,7 @@ let moveCount = 2;
 let boardLength;
 let boardBoarder = parseInt(localStorage.getItem("boardSize"));
 let opponent = localStorage.getItem("opponent")
+let level = localStorage.getItem("opponent")
 
 let turn;
 
@@ -16,9 +17,46 @@ let columns = ["a", "b", "c", "d", "e", "f", "g", "h", "i"]
 let moves = [];
 let boardMap = [];
 
+let botMove;
+
+
+let botMap=[]
+let playerMap=[]
+
+
+
 document.addEventListener('DOMContentLoaded', function () {
-    playWithPerson()
+    initMaps();
+    playWithPerson();
+    if(opponent==="computer"){
+        let level = localStorage.getItem("level");
+
+        if(level==="1"){
+            botMove=botMoveIntern;
+            console.log(1)
+
+        }else if(level==="2"){
+            botMove=botMoveJunior;
+            console.log(2)
+
+        }else if(level==="3"){
+            botMove=botMoveBased;
+            console.log(3)
+            
+        }
+    }
 });
+
+function initMaps(){
+    for (let i = 0; i < boardBoarder; i++) {
+        boardMap[i] = [];
+        for (let j = 0; j < boardBoarder; j++) {
+            playerMap[i][j] = 'F';
+            botMap[i][j] = 'F';
+        }
+    }
+
+}
 
 function playWithPerson() {
     board = document.getElementById("board");
@@ -114,45 +152,25 @@ function makeMove(x, y) {
 
 
 
-function botMoveBased(turn) {
 
 
-    setTimeout(() => {
 
 
-        let opTurn = (turn + 1) % 2;
 
-        for (let j = 0; j < boardBoarder; j++) {
 
-            let diagL = 0;
-            let diagR = 0;
 
-            let maxInline = boardBoarder - j;
 
-            for (let i = 0; i < boardBoarder; i++) {
-                if (boardMap[i][i] == opTurn) {
-                    diagL++;
 
-                    if (diagL === maxInline) {
-                        blockTheDiagonal("L", turn);
-                        console.log("diagL");
-                        return;
-                    }
-                }
-                if (boardMap[i][boardBoarder - i - 1] == opTurn) {
-                    diagR++;
-                    if (diagR === maxInline) {
-                        blockTheDiagonal("R", turn);
-                        console.log("diagr");
-                        return;
-                    }
-                }
-            }
-        }
+function moveRate(x,y){
 
-    }, 1000);
 
+    return 0;
 }
+
+
+
+
+
 
 
 
@@ -215,7 +233,47 @@ function botMoveBased(turn) {
             }
         }
 
-    }, 1000);
+    }, 2000);
+
+}
+
+
+
+function botMoveJunior(turn) {
+    setTimeout(() => {
+
+
+        let opTurn = (turn + 1) % 2;
+
+        for (let j = 0; j < boardBoarder; j++) {
+
+            let diagL = 0;
+            let diagR = 0;
+
+            let maxInline = boardBoarder - j;
+
+            for (let i = 0; i < boardBoarder; i++) {
+                if (boardMap[i][i] == opTurn) {
+                    diagL++;
+
+                    if (diagL === maxInline) {
+                        blockTheDiagonal("L", turn);
+                        console.log("diagL");
+                        return;
+                    }
+                }
+                if (boardMap[i][boardBoarder - i - 1] == opTurn) {
+                    diagR++;
+                    if (diagR === maxInline) {
+                        blockTheDiagonal("R", turn);
+                        console.log("diagr");
+                        return;
+                    }
+                }
+            }
+        }
+
+    }, 3000);
 
 }
 
