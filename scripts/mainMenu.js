@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', function () {
     
        
         const opponentValue = document.querySelector('input[name="opponent"]:checked').value;
+        const firstCoice = document.querySelector('input[name="choice"]:checked').value;
+
       
         const boardSize = document.getElementById('bordSize').value;
         const computerLevel = document.getElementById('level').value;
@@ -18,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         localStorage.setItem("boardSize",boardSize);
         localStorage.setItem("opponent",opponentValue);
+        localStorage.setItem("choice",firstCoice);
         localStorage.setItem("level",computerLevel);
 
         window.location.href = './../pages/game.html';
