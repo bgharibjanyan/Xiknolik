@@ -187,13 +187,13 @@ header {
   min-height: 100vh;
   padding-top: 0px;
   display: none;
-  justify-content: start;
   align-items: center;
   z-index: 500;
   flex-direction: column;
   background-color: rgba(0, 0, 0, 0.6156862745);
   top: 0px;
   left: 0px;
+  justify-content: center;
 }
 .won-menu-container .win-title {
   margin-top: 50px;
@@ -218,6 +218,8 @@ header {
   justify-content: center;
 }
 .won-menu-container .content .won-menu-buttons button {
+  position: relative;
+  z-index: 1000;
   margin: 5px;
   background-color: rgb(243, 199, 78);
   color: #811818;

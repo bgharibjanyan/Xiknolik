@@ -201,13 +201,14 @@ margin-top: 40px;
   min-height: 100vh;
   padding-top: 0px;
   display: none;
-  justify-content: start;
+  
   align-items: center;
   z-index: 500;
   flex-direction: column;
   background-color: #0000009d;
   top:0px;
   left: 0px;
+  justify-content: center;
  .win-title{
   margin-top: 50px;
       font-size: 45px;
@@ -231,6 +232,8 @@ margin-top: 40px;
       justify-content: center;
 
       button{
+        position: relative;
+        z-index: 1000;
         margin: 5px;
         background-color: rgb(243, 199, 78);
         color: #811818;

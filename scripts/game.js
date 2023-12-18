@@ -1,19 +1,26 @@
 let board;
 let moveCount = 2;
 let boardLength;
-let boardBoarder=parseInt(localStorage.getItem("boardSize"));
+let boardBoarder = parseInt(localStorage.getItem("boardSize"));
+let opponent = localStorage.getItem("opponent")
 
-let time=0;
+let turn;
 
-let timerDefauldValue=60;
+let time = 0;
 
-let rows=[1,2,3,4,5,6,7,8,9];
-let columns = ["a","b","c","d","e","f","g","h","i"]
+let timerDefauldValue = 60;
 
-let moves=[];
+let rows = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+let columns = ["a", "b", "c", "d", "e", "f", "g", "h", "i"]
+
+let moves = [];
 let boardMap = [];
 
 document.addEventListener('DOMContentLoaded', function () {
+    playWithPerson()
+});
+
+function playWithPerson() {
     board = document.getElementById("board");
     boardLength = board.offsetHeight;
     board.style.width = boardLength + "px";
@@ -26,8 +33,20 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    const exitButton = document.getElementById("exit");
+    const replayButton = document.getElementById("replay");
+
+    replayButton.addEventListener("click", function () {
+        location.reload();
+    });
+
+    exitButton.addEventListener("click", function () {
+        console.log(0)
+        window.location.href = './../pages/mainMenu.html';
+    });
+
     timer.createTimer()
-});
+}
 
 function createBlock(parent, id) {
 
@@ -50,110 +69,292 @@ function createBlock(parent, id) {
 
 function initBlock(block) {
     block.addEventListener("click", function () {
-        makeMove(block);
+        let blockId = block.getAttribute('id');
+        let x = blockId[1];
+        let y = blockId[0];
+        if (boardMap[y][x] === 'F') {
+            makeMove(x, y);
+            if (opponent === "computer" && moveCount !== boardBoarder * boardBoarder + 1) {
+                botMove(1);
+            }
+
+        }
+        console.log(boardMap)
+
     });
 }
 
 
-function makeMove(block) {
+function makeMove(x, y) {
 
-    let blockId = block.getAttribute('id');
+    console.log("" + y + "-" + x)
 
-    let x = blockId[1];
-    let y = blockId[0];
+    const block = document.getElementById("" + y + x);
 
-    if (boardMap[y][x] === 'F') {
+    if (boardMap[y][x] === 'F'&&moveCount<(boardBoarder*boardBoarder+2)) {
         const icon = document.createElement("img");
 
-        let turn = calcTurn();
+        turn = moveCount % 2;
         icon.setAttribute("src", "./../sorces/char" + turn + ".png")
         icon.setAttribute("class", "character")
 
-
         block.appendChild(icon);
-     
+
         moveCount++
-
         boardMap[y][x] = turn;
-   wincheck(turn, x, y);
-   time+=timer.value;
-   timer.value=61;
-    moves.push("player"+turn+"     X:"+rows[x]+" y:"+columns[y]+ "   time: "+ time);
+        wincheck(turn, x, y);
+
+        time += timer.value;
+        timer.value = 61;
+
+        moves.push("player" + turn + "     X:" + rows[x] + " y:" + columns[y] + "   time: " + time);
     }
-
-   
 }
 
 
-function calcTurn() {
-    return moveCount % 2;
+
+
+function botMoveBased(turn) {
+
+
+    setTimeout(() => {
+
+
+        let opTurn = (turn + 1) % 2;
+
+        for (let j = 0; j < boardBoarder; j++) {
+
+            let diagL = 0;
+            let diagR = 0;
+
+            let maxInline = boardBoarder - j;
+
+            for (let i = 0; i < boardBoarder; i++) {
+                if (boardMap[i][i] == opTurn) {
+                    diagL++;
+
+                    if (diagL === maxInline) {
+                        blockTheDiagonal("L", turn);
+                        console.log("diagL");
+                        return;
+                    }
+                }
+                if (boardMap[i][boardBoarder - i - 1] == opTurn) {
+                    diagR++;
+                    if (diagR === maxInline) {
+                        blockTheDiagonal("R", turn);
+                        console.log("diagr");
+                        return;
+                    }
+                }
+            }
+        }
+
+    }, 1000);
+
 }
 
+
+
+function botMoveBased(turn) {
+
+
+    setTimeout(() => {
+
+
+        let opTurn = (turn + 1) % 2;
+
+        for (let j = 0; j < boardBoarder; j++) {
+            let inlineX = 0;
+            let inlineY = 0;
+
+            let diagL = 0;
+            let diagR = 0;
+
+            let maxInline = boardBoarder - j;
+
+            for (let i = 0; i < boardBoarder; i++) {
+                if (boardMap[i][i] == opTurn) {
+                    diagL++;
+
+                    if (diagL === maxInline) {
+                        blockTheDiagonal("L", turn);
+                        console.log("diagL");
+                        return;
+                    }
+                }
+                if (boardMap[i][boardBoarder - i - 1] == opTurn) {
+                    diagR++;
+                    if (diagR === maxInline) {
+                        blockTheDiagonal("R", turn);
+                        console.log("diagr");
+                        return;
+                    }
+                }
+                if (boardMap[j][i] == opTurn) {
+                    inlineX++;
+                    if (inlineX === maxInline) {
+                        blockTheRow(j, opTurn);
+
+
+                        return;
+                    }
+                }
+                if (boardMap[i][j] == opTurn) {
+                    inlineY++;
+                    if (inlineY=== maxInline) {
+                        blockTheColumn(j, opTurn);
+                        console.log("inlineY");
+
+                        console.log("i=" + i);
+                        console.log("j=" + j);
+
+                        return;
+                    }
+                }
+            }
+        }
+
+    }, 1000);
+
+}
+
+
+
+
+function botMoveIntern(turn) {
+    setTimeout(() => {
+        randomMove();
+    }, 4000);
+
+}
+
+
+function randomMove() {
+    while (moveCount<(boardBoarder*boardBoarder+2)) {
+
+        let x = Math.floor(Math.random() * boardBoarder);
+        let y = Math.floor(Math.random() * boardBoarder);
+
+        console.log("" + x + "-" + y);
+        if (boardMap[y][x] == "F") {
+            makeMove(x, y);
+            return 0;
+        } else {
+            randomMove()
+            return 0;
+        }
+    }
+}
+
+function blockTheRow(row, turn) {
+    for (let i = 0; i < boardBoarder; i++) {
+        if (boardMap[row][i] === "F") {
+            makeMove(i, row);
+            return 0;
+        }
+    }
+    randomMove();
+}
+
+function blockTheColumn(column, turn) {
+    for (let i = 0; i < boardBoarder; i++) {
+        if (boardMap[i][column] === "F") {
+            makeMove(column, i);
+            return 0;
+        }
+    }
+    randomMove();
+
+}
+
+function blockTheDiagonal(direction, turn) {
+
+    if (direction === "L") {
+        for (let i = 0; i < boardBoarder; i++) {
+            if (boardMap[i][i] === "F") {
+                makeMove(i, i);
+                return 0;
+            }
+        }
+    } else if (direction === "R") {
+        for (let i = 0; i < boardBoarder; i++) {
+            if (boardMap[i][boardBoarder - i - 1] === "F") {
+
+                makeMove(boardBoarder - i - 1, i);
+                return 0;
+            }
+        }
+
+    }
+    randomMove();
+
+}
 
 function wincheck(turn, x, y) {
     let inlineX = 0;
     let inlineY = 0;
 
-    let diagL=0;
-    let diagR=0;
+    let diagL = 0;
+    let diagR = 0;
+
+    if (moveCount === boardBoarder * boardBoarder + 2) {
+        win(3);
+    } else {
+
+        for (let i = 0; i < boardBoarder; i++) {
+            if (boardMap[i][i] == turn) {
+                diagL++
+            }
+            if (boardMap[i][boardBoarder - i - 1] === turn) {
+                diagR++;
+            }
 
 
-    for (let i = 0; i < boardBoarder; i++) {
-             if(boardMap[i][i]==turn){
-            diagL++
-        }
-        if(boardMap[i][boardBoarder-i-1]===0){
-            diagR++;
-        }
-        
-       
-        if (boardMap[i][x] === turn) {
+            if (boardMap[i][x] === turn) {
 
-            inlineX++;
+                inlineX++;
+            }
+            if (boardMap[y][i] === turn) {
+                inlineY++;
+            }
         }
-        if (boardMap[y][i] === turn) {
-            inlineY++;
-        } 
+
+        if (inlineX === boardBoarder || inlineY === boardBoarder || diagL === boardBoarder || diagR === boardBoarder) {
+            win(turn);
+        }
     }
-  
-    console.log(inlineX)
-  
-    if (inlineX === boardBoarder || inlineY === boardBoarder||diagL === boardBoarder||diagR === boardBoarder) {
-        win(turn);
-    }
+
+
 }
 
 function win(turn) {
 
-    document.getElementById('wonMenuContainer').style.display="flex";
-
+    document.getElementById('wonMenuContainer').style.display = "flex";
 
     timer.clearTimer();
-    let winTitle=' player' + (turn+1) + "   won";
+    let winTitle = ' player' + (turn + 1) + "   won";
 
-    const winTitleElement=document.getElementById("winTitle");
+    const winTitleElement = document.getElementById("winTitle");
     winTitleElement.textContent = winTitle;
 
 
-    const movesContainer= document.getElementById("moves");
+    const movesContainer = document.getElementById("moves");
 
-    for(let i=0;i<moves.length;i++){
-        let move=document.createElement("p");
-        move.setAttribute('class',"moveStr")
-        move.textContent=moves[i];
+    for (let i = 0; i < moves.length; i++) {
+        let move = document.createElement("p");
+        move.setAttribute('class', "moveStr")
+        move.textContent = moves[i];
         movesContainer.appendChild(move);
 
     }
 
-
-    alert('player' + (turn+1) + "won")
-    console.log(moves);
 }
 
 
 let timer = {
     value: 61,
-    interval: 100,
+    interval: 1000,
     timerLoop: null,
 
     createTimer() {
@@ -165,12 +366,12 @@ let timer = {
         this.updateValue();
 
         if (this.value === 0) {
-            win((moveCount+1)%2);
+            win((moveCount + 1) % 2);
         }
     },
 
     updateValue() {
-        let turn = moveCount % 2 + 1;
+        turn = moveCount % 2 + 1;
         const parentElement = document.getElementById("val" + turn);
 
         if (parentElement) {
