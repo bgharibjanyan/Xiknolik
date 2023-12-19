@@ -59,7 +59,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if(choice==="opponent"){
         botMove();
-
     }
 
 });
@@ -152,7 +151,6 @@ function initBlock(block) {
 
 function marckBotInMap(x, y, mark) {
 
-
     console.log("x=" + x)
     console.log("y=" + y)
     console.log(boardBoarder - y - 1)
@@ -200,9 +198,6 @@ function marckBotInMap(x, y, mark) {
         }
 
     }
-
-
-    console.log(choiceMap);
     choiceMap[y][x] = "X";
 
 }
@@ -210,8 +205,6 @@ function marckBotInMap(x, y, mark) {
 
 
 function makeMove(x, y,mark) {
-console.log("aaaaaaaaaaaaaa"+moveCount)
-    console.log("" + y + "-" + x)
 
     const block = document.getElementById("" + y + x);
 
@@ -241,10 +234,10 @@ console.log("aaaaaaaaaaaaaa"+moveCount)
 
 function botMoveSenior() {
 
-    if (moveCount < 4) {
-        if (choiceMap[center][center] !== "X") {
+    if (moveCount < 4 &&choiceMap[center][center] !== "X") {
+       
             makeMove(center, center,false);
-        }
+        
     }else if(moveCount>=(boardBoarder*boardBoarder)){
         randomMove();
     }
@@ -451,6 +444,11 @@ function wincheck(turn, x, y) {
 
     let diagL = 0;
     let diagR = 0;
+    let maxMoveCount= boardBoarder * boardBoarder + 2
+    if(choice==="opponent"){
+       maxMoveCount++;
+
+    }
 
     if (moveCount === boardBoarder * boardBoarder + 2) {
         win(3);
@@ -483,15 +481,14 @@ function wincheck(turn, x, y) {
 }
 
 function win(turn) {
+ let winTitle = ' player ' + (turn + 1) + "   won";
 
-    if(turn=3)
-    {    let winTitle = "No Winner";}
+    if(turn===3){    winTitle = "No Winner";}
 
     document.getElementById('wonMenuContainer').style.display = "flex";
 
     timer.clearTimer();
-    let winTitle = ' player' + (turn + 1) + "   won";
-
+   
     const winTitleElement = document.getElementById("winTitle");
     winTitleElement.textContent = winTitle;
 
@@ -515,7 +512,7 @@ function win(turn) {
 
 let timer = {
     value: 61,
-    interval: 1000,
+    interval: 100,
     timerLoop: null,
 
     createTimer() {
